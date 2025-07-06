@@ -141,15 +141,15 @@ public static class ConsoleUI
             Console.WriteLine("The user is not a manager");
             return;
         }
-        Console.WriteLine("\n---- ALL TASKS ----");
         var tasks = _projectService.GetAllTasks();
         if (!tasks.Any())
         {
             Console.WriteLine("No tasks yet");
             return;
         }
-        Console.WriteLine("Apply filters? (y/n)");
-        if (Console.ReadKey().Key == ConsoleKey.Y)
+        Console.WriteLine("\nApply filters? (y/n)");
+        var answer = Console.ReadLine();
+        if (!String.IsNullOrEmpty(answer) && answer.ToLower() == "y")
         {
             try
             {
@@ -162,6 +162,7 @@ public static class ConsoleUI
                 Console.WriteLine($"\nError: {ex.Message}");
             }
         }
+        Console.WriteLine("\n---- ALL TASKS ----");
         foreach (var task in tasks)
         {
             Console.WriteLine($"ID: {task.TaskID}");
@@ -326,15 +327,15 @@ public static class ConsoleUI
             Console.WriteLine("The user is not an employee, he has no tasks to view");
             return;
         }
-        Console.WriteLine("\n---- ALL MY TASKS ----");
         var tasks = _projectService.GetEmployeeTasks(user.Login);
         if (!tasks.Any())
         {
             Console.WriteLine("You have no tasks.");
             return;
         }
-        Console.WriteLine("Apply filters? (y/n)");
-        if (Console.ReadKey().Key == ConsoleKey.Y)
+        Console.WriteLine("\nApply filters? (y/n)");
+        var answer = Console.ReadLine();
+        if (!String.IsNullOrEmpty(answer) && answer.ToLower() == "y")
         {
             try
             {
@@ -347,6 +348,7 @@ public static class ConsoleUI
                 Console.WriteLine($"\nError: {ex.Message}");
             }
         }
+        Console.WriteLine("\n---- ALL MY TASKS ----");
         foreach (var task in tasks)
         {
             Console.WriteLine($"ID: {task.TaskID}");
@@ -450,9 +452,9 @@ public static class ConsoleUI
                 options.AssignedEmployeeLogin = login;
         }
 
-        Console.WriteLine("\n--- Параметры сортировки ---");
-        Console.WriteLine("Поля: id, title, project, status, employee");
-        Console.Write("Сортировать по: ");
+        Console.WriteLine("\n---- Sorting Options ----");
+        Console.WriteLine("Fields: id, title, project, status, employee (default - by id)");
+        Console.Write("Sort by: ");
         options.SortBy = Console.ReadLine();
 
         Console.Write("Order (1 - decreasing, other or empty - increasing): ");
