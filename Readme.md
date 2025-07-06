@@ -83,32 +83,32 @@ dotnet run
 ## Пример рабочей сессии
 - **Менеджер**
 1. Первичный вход
-![main menu](Screenshots/main_menu.jpg)
-![manager login](Screenshots/admin_login.jpg)
-![manager menu](Screenshots/manager_menu.jpg)
+<br>![main menu](Screenshots/main_menu.jpg)
+<br>![manager login](Screenshots/admin_login.jpg)
+<br>![manager menu](Screenshots/manager_menu.jpg)
 2. Регистрация сотрудника
-![employee registartion](Screenshots/employee_registartion.jpg)
+<br>![employee registartion](Screenshots/employee_registartion.jpg)
 3. Создание задач
-![make task 1](Screenshots/make_task_1.jpg)
-![make task 2](Screenshots/make_task_2.jpg)
-![make task 3](Screenshots/make_task_3.jpg)
+<br>![make task 1](Screenshots/make_task_1.jpg)
+<br>![make task 2](Screenshots/make_task_2.jpg)
+<br>![make task 3](Screenshots/make_task_3.jpg)
 4. Просмотр всех задач
-![show all tasks](Screenshots/show_all_tasks_1.jpg)
+<br>![show all tasks](Screenshots/show_all_tasks_1.jpg)
 5. Назначение задач на сотрудника
-![assign task 1](Screenshots/assign_1.jpg)
-![assign task 2](Screenshots/assign_2.jpg)
-![assign task 3](Screenshots/assign_3.jpg)
+<br>![assign task 1](Screenshots/assign_1.jpg)
+<br>![assign task 2](Screenshots/assign_2.jpg)
+<br>![assign task 3](Screenshots/assign_3.jpg)
 6. Выход из системы
-![main menu](Screenshots/main_menu.jpg)
+<br>![main menu](Screenshots/main_menu.jpg)
 - **Сотрудник**
 1. Вход в систему
-![employee login](Screenshots/employee_login.jpg)
-![employee menu](Screenshots/employee_menu.jpg)
+<br>![employee login](Screenshots/employee_login.jpg)
+<br>![employee menu](Screenshots/employee_menu.jpg)
 2. Просмотр своих задач
-![employee_tasks_n](Screenshots/employee_tasks_n.jpg)
+<br>![employee_tasks_n](Screenshots/employee_tasks_n.jpg)
 3. Фильтрация по проекту
-![employee_tasks_y](Screenshots/employee_tasks_y.jpg)
+<br>![employee_tasks_y](Screenshots/employee_tasks_y.jpg)
 4. Изменение статуса задачи
-![employee change task status](Screenshots/employee_task_status.jpg)
+<br>![employee change task status](Screenshots/employee_task_status.jpg)
 5. Выход из системы
-![exit](Screenshots/exit.jpg)
+<br>![exit](Screenshots/exit.jpg)
