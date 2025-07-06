@@ -377,7 +377,7 @@ public static class ConsoleUI
         Console.WriteLine("\nYour tasks:");
         foreach (var task in myTasks)
         {
-            Console.WriteLine($"ID: {task.TaskID}, Title: {task.Title}");
+            Console.WriteLine($"ID: {task.TaskID}, Title: {task.Title}, Status: {task.Status}");
         }
         Console.Write("Enter the task ID you want to change status: ");
         var taskId = Console.ReadLine() ?? "";
