@@ -17,6 +17,9 @@ public class FileLogger : ILog
 
     public void Log(string message)
     {
-        File.AppendAllText(_filePath, $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {message}\n");
+        if (File.Exists(_filePath))
+        {
+            File.AppendAllText(_filePath, $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {message}\n");
+        }
     }
 }

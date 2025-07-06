@@ -26,7 +26,14 @@ public static class ConsoleUI
     public static void RunApp(string logPath, string dbPath)
     {
         InitializeServices(logPath, dbPath);
-        _userService.CreateSuperUser();
+        try
+        {
+            _userService.CreateSuperUser();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"\nError: {ex.Message}");
+        }
         while (true)
         {
             Console.Clear();
