@@ -10,7 +10,11 @@ public class JsonStorage : IDataStorage
 
     public JsonStorage(string filePath)
     {
-        FilePath = filePath;
+        if (filePath != null)
+        {
+            FilePath = filePath;
+            Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
+        }
     }
 
     public Data LoadData()
