@@ -51,4 +51,47 @@ public class ProjectService : IProjectService
     {
         return _storage.LoadData().Tasks;
     }
+
+    public List<TaskForEmployee> FilterAndSortTasks(List<TaskForEmployee> tasks, TaskFilter options)
+    {
+        var filtered = tasks.AsQueryable();
+
+        if (!string.IsNullOrEmpty(options.ProjectID))
+            filtered = filtered.Where(t => t.ProjectID == options.ProjectID);
+
+        if (options.Status != null)
+            filtered = filtered.Where(t => t.Status == options.Status);
+
+        if (!string.IsNullOrEmpty(options.AssignedEmployeeLogin))
+            filtered = filtered.Where(t => t.EmployeeLogin == options.AssignedEmployeeLogin);
+
+        filtered = options.SortBy?.ToLower() switch
+        {
+            "id" => options.SortDescending ?
+                filtered.OrderByDescending(t => t.TaskID) :
+                filtered.OrderBy(t => t.TaskID),
+
+            "title" => options.SortDescending ?
+                filtered.OrderByDescending(t => t.Title) :
+                filtered.OrderBy(t => t.Title),
+
+            "project" => options.SortDescending ?
+                filtered.OrderByDescending(t => t.ProjectID) :
+                filtered.OrderBy(t => t.ProjectID),
+
+            "status" => options.SortDescending ?
+                filtered.OrderByDescending(t => t.Status) :
+                filtered.OrderBy(t => t.Status),
+
+            "employee" => options.SortDescending ?
+                filtered.OrderByDescending(t => t.EmployeeLogin) :
+                filtered.OrderBy(t => t.EmployeeLogin),
+
+            _ => options.SortDescending ?
+                filtered.OrderByDescending(t => t.TaskID) :
+                filtered.OrderBy(t => t.TaskID)
+        };
+
+        return filtered.ToList();
+    }
 }

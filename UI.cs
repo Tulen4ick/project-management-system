@@ -13,6 +13,7 @@ public static class ConsoleUI
     private static IProjectService _projectService;
     private static IPasswordService _passwordService;
     private static ILog _log;
+    private static TaskFilter currentFilter;
 
     private static void InitializeServices(string logPath, string dbPath)
     {
@@ -146,6 +147,20 @@ public static class ConsoleUI
         {
             Console.WriteLine("No tasks yet");
             return;
+        }
+        Console.WriteLine("Apply filters? (y/n)");
+        if (Console.ReadKey().Key == ConsoleKey.Y)
+        {
+            try
+            {
+                var options = GetFilterOptionsFromUser(user.Role);
+                tasks = _projectService.FilterAndSortTasks(tasks, options);
+                Console.WriteLine("Filters have been successfully applied");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\nError: {ex.Message}");
+            }
         }
         foreach (var task in tasks)
         {
@@ -318,6 +333,20 @@ public static class ConsoleUI
             Console.WriteLine("You have no tasks.");
             return;
         }
+        Console.WriteLine("Apply filters? (y/n)");
+        if (Console.ReadKey().Key == ConsoleKey.Y)
+        {
+            try
+            {
+                var options = GetFilterOptionsFromUser(user.Role);
+                tasks = _projectService.FilterAndSortTasks(tasks, options);
+                Console.WriteLine("Filters have been successfully applied");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\nError: {ex.Message}");
+            }
+        }
         foreach (var task in tasks)
         {
             Console.WriteLine($"ID: {task.TaskID}");
@@ -382,5 +411,53 @@ public static class ConsoleUI
         {
             Console.WriteLine($"\nError: {ex.Message}");
         }
+    }
+
+    public static TaskFilter GetFilterOptionsFromUser(UserRoles userRole)
+    {
+        var options = new TaskFilter();
+        Console.WriteLine("Filtering parameters");
+
+        Console.Write("Project ID (leave blank to skip): ");
+        var projectID = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(projectID))
+            options.ProjectID = projectID;
+
+        Console.Write("Select status (0-2 to leave, other or empty to skip): ");
+        var statusChoice = Console.ReadLine() ?? "";
+        TaskForEmployeeStatus? status;
+        switch (statusChoice)
+        {
+            case "0":
+                status = TaskForEmployeeStatus.ToDo;
+                break;
+            case "1":
+                status = TaskForEmployeeStatus.InProgress;
+                break;
+            case "2":
+                status = TaskForEmployeeStatus.Done;
+                break;
+            default:
+                status = null;
+                break;
+        }
+        options.Status = status;
+        if (userRole == UserRoles.Manager)
+        {
+            Console.WriteLine("Employee login (leave blank to skip): ");
+            var login = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(login))
+                options.AssignedEmployeeLogin = login;
+        }
+
+        Console.WriteLine("\n--- Параметры сортировки ---");
+        Console.WriteLine("Поля: id, title, project, status, employee");
+        Console.Write("Сортировать по: ");
+        options.SortBy = Console.ReadLine();
+
+        Console.Write("Order (1 - decreasing, other or empty - increasing): ");
+        if (Console.ReadLine() == "1")
+            options.SortDescending = true;
+        return options;
     }
 }

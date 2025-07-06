@@ -9,4 +9,5 @@ public interface IProjectService
     List<TaskForEmployee> GetEmployeeTasks(string login);
     void UpdateTaskStatus(Guid taskId, TaskForEmployeeStatus status);
     List<TaskForEmployee> GetAllTasks();
+    List<TaskForEmployee> FilterAndSortTasks(List<TaskForEmployee> tasks, TaskFilter options);
 }
