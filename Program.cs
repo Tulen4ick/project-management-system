@@ -23,9 +23,9 @@ public class Program
         {
             Console.WriteLine($"Configuration error: {ex.Message}");
         }
-        if (string.IsNullOrWhiteSpace(logPath))
+        if (string.IsNullOrWhiteSpace(logPath) || !File.Exists(logPath))
             logPath = "./Logs/logs.txt";
-        if (string.IsNullOrWhiteSpace(dbPath))
+        if (string.IsNullOrWhiteSpace(dbPath) || !File.Exists(dbPath))
             dbPath = "./Data/db.json";
         ConsoleUI.RunApp(logPath, dbPath);
     }
