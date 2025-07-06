@@ -6,6 +6,7 @@ public interface IUserService
 {
     void RegisterUser(User user);
     bool UserExists(string login);
+    public List<User> GetAllEmployees();
     User? FindUserByLogin(string login);
     public void CreateSuperUser();
 }

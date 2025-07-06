@@ -219,11 +219,18 @@ public static class ConsoleUI
         }
         Console.Write("Enter the task ID for which you want to assign an employee: ");
         var taskId = Console.ReadLine() ?? "";
+        Console.WriteLine("\nEmployees:");
+        var employees = _userService.GetAllEmployees();
+        foreach (var employee in employees)
+        {
+            Console.WriteLine($"Login: {employee.Login}");
+        }
         Console.Write("Enter the employee's login: ");
         var employeeLogin = Console.ReadLine() ?? "";
         try
         {
             _projectService.AssignEmployeeToTask(Guid.Parse(taskId), employeeLogin);
+            Console.WriteLine("\nThe task has been successfully assigned");
         }
         catch (Exception ex)
         {
@@ -323,7 +330,18 @@ public static class ConsoleUI
             return;
         }
         Console.WriteLine("\n---- CHANGING THE STATUS OF A TASK ----");
-        Console.Write("Enter the task ID: ");
+        var myTasks = _projectService.GetEmployeeTasks(user.Login);
+        if (!myTasks.Any())
+        {
+            Console.WriteLine("You have no tasks.");
+            return;
+        }
+        Console.WriteLine("\nYour tasks:");
+        foreach (var task in myTasks)
+        {
+            Console.WriteLine($"ID: {task.TaskID}, Title: {task.Title}");
+        }
+        Console.Write("Enter the task ID you want to change status: ");
         var taskId = Console.ReadLine() ?? "";
         Console.WriteLine("Selectable statuses:");
         Console.WriteLine("0 - To Do");

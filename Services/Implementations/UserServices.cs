@@ -34,6 +34,11 @@ public class UserService : IUserService
         return _storage.LoadData().Users.Any(x => x.Login == login);
     }
 
+    public List<User> GetAllEmployees()
+    {
+        return _storage.LoadData().Users.Where(x => x.Role == UserRoles.Employee).ToList();
+    }
+
     public User? FindUserByLogin(string login)
     {
         return _storage.LoadData().Users.FirstOrDefault(x => x.Login == login);
